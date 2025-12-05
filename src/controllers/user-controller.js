@@ -1,3 +1,4 @@
+import Leave from "../models/leave.model.js";
 import User from "../models/user.model.js"
 
 export const createUser = async (req,res)=>{
@@ -67,4 +68,16 @@ try {
 } catch (error) {
       res.status(500).json({message:"internal error from get controller",error})
 }
+}
+
+export const createLeave =  async (req,res)=>{
+   try {
+    const leave =await Leave.create(req.body)
+       res.status(201).json({
+        message:"leave create succesfully",leave
+       })
+    console.log(leave)
+   } catch (error) {
+     res.status(500).json({message:"internal error from leave controller",error})
+   }
 }
