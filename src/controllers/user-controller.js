@@ -81,3 +81,20 @@ export const createLeave =  async (req,res)=>{
      res.status(500).json({message:"internal error from leave controller",error})
    }
 }
+
+
+export const getLeave = async(req,res)=>{
+ try {
+   const {email} = req.params;
+  const leave = await Leave.find({userEmail: email})
+  console.log(email,leave)
+  console.log(email,leave)
+    if(!leave){
+    res.status(401).json({message:"leave not find"})
+    }
+      res.status(201).json({message:"leave get successfully",leave})
+      console.log(leave)
+ } catch (error) {
+    res.status(500).json({message:"internal error from get controller",error})
+ }
+}
