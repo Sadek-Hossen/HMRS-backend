@@ -1,17 +1,24 @@
 import { Router } from "express";
-import { createLeave, createUser, getLeave, getUser, loginUser } from "../controllers/user-controller.js";
+import multer from "multer";
+import {
+  createLeave,
+  createUser,
+  getLeave,
+  getUser,
+  loginUser,
+  profileUpdate,
+} from "../controllers/user-controller.js";
 
 const router = Router();
+const upload = multer({ dest: "uploads/" }); // simple storage
 
+router.post("/create", upload.single("profileImage"), createUser);
+router.post("/login", loginUser);
+router.get("/get/:email", getUser);
+router.post("/leaceAplication", createLeave);
+router.get("/leave/:email", getLeave);
 
+// ✅ ADD THIS ↓ (important)
+router.patch("/update/:email", upload.single("image"), profileUpdate);
 
-
-router.post("/create",createUser)
-router.post("/login",loginUser)
-router.get("/get/:email",getUser)
-router.post("/leaceAplication",createLeave)
-router.get("/leave/:email",getLeave)
-
-
-
-export default router
+export default router;
